@@ -1,20 +1,32 @@
 // @ts-check
 
+const overlay = document.querySelector('.overlay-outer');
+const overlayInner = document.querySelector('.overlay-inner');
+const addNewButton = document.querySelector('.new-book');
+
 
 /**
- * Array of Books - books are objects
- * @type {Array<object>}
+ * open pop up for to enter new book details 
+ * called on ADD new button with event listener 
  */
-let myLibrary = [ 
-    {
-        title:'the hobbit', 
-        author: 'JRR Tolkein',
-        pages: '200'
-    }, {
-        title:'harry potter', 
-        author: 'JK Rowling',
-        pages: '400'
-    }];
+const openOverlay = () => {
+    //check if modal is already open 
+    if (overlay.matches('.open')) {
+        console.info('overlay already open');
+        return;
+    }
+    overlay.classList.add('open');
+}
+
+addNewButton.addEventListener('click', openOverlay);
+
+let myLibrary = [];
+
+let author;
+let pages;
+let title;
+let read;
+let newLibraryItem;
 
 /**
  * * Book Object constructor function
@@ -30,8 +42,47 @@ function Book (title,author,numberOfPages,read) {
     this.read = read
 }
 
-// const theHobbit = new Book('The Hobbit','JRR Tolkein', 298, 'not read yet');
-//         console.log(theHobbit.info());
+// const addBookToLibrary = (newBook) => {
+//     myLibrary.push(newBook);
+// }
+
+
+// /**
+//  * Function creates newBook object
+//  * @param {String} author 
+//  * @param {String} title 
+//  * @param {Number} pages 
+//  * @param {String} read 
+//  */
+// const saveNewBook = (author, title, pages, read) => {
+//     newLibraryItem = new Book(author, title, pages, read);
+// }
+const saveNewBook = (event) => {
+    author = event.target[0].value;
+    title = event.target[1].value;
+    pages = event.target[2].value;
+    read = event.target[3].value;
+    newLibraryItem = new Book(author, title, pages, read);
+    console.log(newLibraryItem);
+    myLibrary.push(newLibraryItem);
+    console.log(myLibrary);
+    displayBookCards(myLibrary);
+    
+}
+
+
+
+
+//add event listener to form submit button
+const newBookForm = document.getElementById('new-book-form');
+newBookForm.addEventListener('submit', (event) => {
+        saveNewBook(event);
+        
+    }
+    );
+
+
+
 
 
 /**
@@ -40,6 +91,7 @@ function Book (title,author,numberOfPages,read) {
  * this function is called in {@link displayBookCards}
  */
 function createBookCard(book) {
+
     const cardsWrapper = document.querySelector('.cards-wrapper');
     const bookCard = document.createElement('div');
     const title = document.createElement('h3');
@@ -72,4 +124,4 @@ const displayBookCards = (library) => {
     })
 } 
 
-displayBookCards(myLibrary);
+
