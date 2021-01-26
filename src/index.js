@@ -20,7 +20,15 @@ const openOverlay = () => {
 
 addNewButton.addEventListener('click', openOverlay);
 
-let myLibrary = [];
+let myLibrary = [
+    {
+        title: 'Harry Potter',
+        author: 'JK Rowling',
+        pages: '230',
+        read: 'yes'
+
+    }
+];
 
 let author;
 let pages;
@@ -32,13 +40,13 @@ let newLibraryItem;
  * * Book Object constructor function
  * @param {String} title 
  * @param {String} author 
- * @param {Number} numberOfPages 
+ * @param {String} pages 
  * @param {String|Boolean} read 
  */
-function Book (title,author,numberOfPages,read) {
+function Book (title,author,pages,read) {
     this.title = title
     this.author = author
-    this.numberOfPages = numberOfPages
+    this.pages = pages
     this.read = read
 }
 
@@ -51,13 +59,13 @@ function Book (title,author,numberOfPages,read) {
 //  * Function creates newBook object
 //  * @param {String} author 
 //  * @param {String} title 
-//  * @param {Number} pages 
+//  * @param {String} pages 
 //  * @param {String} read 
 //  */
 // const saveNewBook = (author, title, pages, read) => {
 //     newLibraryItem = new Book(author, title, pages, read);
 // }
-const saveNewBook = (event) => {
+const addBookToLibrary = (event) => {
     author = event.target[0].value;
     title = event.target[1].value;
     pages = event.target[2].value;
@@ -66,7 +74,7 @@ const saveNewBook = (event) => {
     console.log(newLibraryItem);
     myLibrary.push(newLibraryItem);
     console.log(myLibrary);
-    displayBookCards(myLibrary);
+    createBookCard(newLibraryItem);
     
 }
 
@@ -76,7 +84,9 @@ const saveNewBook = (event) => {
 //add event listener to form submit button
 const newBookForm = document.getElementById('new-book-form');
 newBookForm.addEventListener('submit', (event) => {
-        saveNewBook(event);
+         event.preventDefault();
+        addBookToLibrary(event);
+        
         
     }
     );
@@ -124,4 +134,4 @@ const displayBookCards = (library) => {
     })
 } 
 
-
+displayBookCards(myLibrary);
