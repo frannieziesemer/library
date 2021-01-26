@@ -3,7 +3,7 @@
 const overlay = document.querySelector('.overlay-outer');
 const overlayInner = document.querySelector('.overlay-inner');
 const addNewButton = document.querySelector('.new-book');
-
+const submitNewBookButton = document.getElementById('submit-new-book');
 
 /**
  * open pop up for to enter new book details 
@@ -14,8 +14,12 @@ const openOverlay = () => {
     if (overlay.matches('.open')) {
         console.info('overlay already open');
         return;
+    } else {
+        submitNewBookButton.disabled = false;
+        overlay.classList.add('open');
     }
-    overlay.classList.add('open');
+
+ 
 }
 
 addNewButton.addEventListener('click', openOverlay);
@@ -50,21 +54,7 @@ function Book (title,author,pages,read) {
     this.read = read
 }
 
-// const addBookToLibrary = (newBook) => {
-//     myLibrary.push(newBook);
-// }
 
-
-// /**
-//  * Function creates newBook object
-//  * @param {String} author 
-//  * @param {String} title 
-//  * @param {String} pages 
-//  * @param {String} read 
-//  */
-// const saveNewBook = (author, title, pages, read) => {
-//     newLibraryItem = new Book(author, title, pages, read);
-// }
 const addBookToLibrary = (event) => {
     author = event.target[0].value;
     title = event.target[1].value;
@@ -75,23 +65,25 @@ const addBookToLibrary = (event) => {
     myLibrary.push(newLibraryItem);
     console.log(myLibrary);
     createBookCard(newLibraryItem);
-    
+    submitNewBookButton.disabled = true;
+}
+const newBookForm = document.getElementById('new-book-form');
+const exitBookButton = document.getElementById('exit-form');
+
+const exitForm = () => {
+    newBookForm.reset();
+    overlay.classList.remove('open');
 }
 
 
-
-
 //add event listener to form submit button
-const newBookForm = document.getElementById('new-book-form');
 newBookForm.addEventListener('submit', (event) => {
-         event.preventDefault();
-        addBookToLibrary(event);
-        
-        
+    event.preventDefault();    
+    addBookToLibrary(event);
     }
     );
 
-
+exitBookButton.addEventListener('click', exitForm);
 
 
 
@@ -101,26 +93,29 @@ newBookForm.addEventListener('submit', (event) => {
  * this function is called in {@link displayBookCards}
  */
 function createBookCard(book) {
-
     const cardsWrapper = document.querySelector('.cards-wrapper');
     const bookCard = document.createElement('div');
-    const title = document.createElement('h3');
-    const author = document.createElement('h5');
-    const pages = document.createElement('p');
+    const titleElement = document.createElement('h3');
+    const authorElement = document.createElement('h5');
+    const pagesElement = document.createElement('p');
+    const readElement = document.createElement('p');
 
     bookCard.classList.add('book-card');
-    title.classList.add('title');
-    author.classList.add('author');
-    pages.classList.add('pages');
+    titleElement.classList.add('title');
+    authorElement.classList.add('author');
+    pagesElement.classList.add('pages');
+    readElement.classList.add('element');
 
-    title.textContent = book.title;
-    author.textContent = book.author;
-    pages.textContent = `${book.pages} pages`;
+    titleElement.textContent = book.title;
+    authorElement.textContent = book.author;
+    pagesElement.textContent = `${book.pages} pages`;
+    readElement.textContent = `book read before? ${book.read}`;
 
     cardsWrapper.appendChild(bookCard);
-    bookCard.appendChild(title);
-    bookCard.appendChild(author);
-    bookCard.appendChild(pages);
+    bookCard.appendChild(titleElement);
+    bookCard.appendChild(authorElement);
+    bookCard.appendChild(pagesElement);
+    bookCard.appendChild(readElement);
   
 }
 /**
