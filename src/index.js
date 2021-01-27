@@ -95,24 +95,33 @@ function createBookCard(book) {
     const authorElement = document.createElement('h5');
     const pagesElement = document.createElement('p');
     const readElement = document.createElement('p');
+    const removeButton = document.createElement('button');
 
     bookCard.classList.add('book-card');
     titleElement.classList.add('title');
     authorElement.classList.add('author');
     pagesElement.classList.add('pages');
-    readElement.classList.add('element');
+    readElement.classList.add('read');
+    removeButton.classList.add('remove-button');
 
     titleElement.textContent = book.title;
     authorElement.textContent = book.author;
     pagesElement.textContent = `${book.pages} pages`;
     readElement.textContent = `book read before? ${book.read}`;
+    removeButton.textContent = 'delete';
 
     cardsWrapper.appendChild(bookCard);
     bookCard.appendChild(titleElement);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
     bookCard.appendChild(readElement);
+    bookCard.appendChild(removeButton);
+
+    //set index number as data attribute 
+    let indexNumber = myLibrary.length -1;
+    bookCard.setAttribute('data-index', indexNumber);
   
+    removeButton.addEventListener('click', removeBook);
 }
 /**
  * Append existing Book Cards to Html - loops through {@link myLibrary} array and calls the {@link createBookCard} function 
@@ -137,6 +146,18 @@ const exitBookButton = document.getElementById('exit-form');
 const exitForm = () => {
     newBookForm.reset();
     overlay.classList.remove('open');
+}
+
+
+/**
+ * Function to remove a book object from array and from dom
+ * @param {Event} event - event listener on delete button 
+ */
+const removeBook = (event) => {
+    let indexOfBook = event.target.parentElement.dataset.index;
+    myLibrary.splice(indexOfBook, 1);
+    event.target.parentElement.remove();
+    console.log(myLibrary);
 }
 
 

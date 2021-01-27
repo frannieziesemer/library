@@ -14,6 +14,11 @@ h1 {
     font-weight: 400;
     font-size: 48px;
 }
+
+button:hover {
+    cursor:pointer; 
+}
+
 .new-book-button {
     color: white;
     font-size: 20px;
@@ -102,7 +107,6 @@ button#exit-form, button#submit-new-book {
 }
 #submit-new-book:hover {
     background-color: rgb(0,245,166);
-    cursor:pointer; 
 }
 #submit-new-book:disabled {
     background-color: rgba(0, 245, 167, 0.425);
@@ -117,6 +121,5 @@ button#exit-form, button#submit-new-book {
 #exit-form:hover {
     background: magenta;
     color: white;
-    cursor:pointer; 
 
 }
