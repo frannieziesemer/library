@@ -20,7 +20,7 @@ let myLibrary = [
         title: 'Harry Potter',
         author: 'JK Rowling',
         pages: '230',
-        read: 'yes'
+        read: true
 
     }
 ];
@@ -49,7 +49,7 @@ addNewButton.addEventListener('click', openOverlay);
  * @param {String} title - Title of the book
  * @param {String} author - Author of the book
  * @param {String} pages - Number of pages the book has
- * @param {String|Boolean} read - Indicates whether the book has been read or not
+ * @param {Boolean} read - Indicates whether the book has been read or not
  */
 function Book (title,author,pages,read) {
     this.title = title
@@ -94,27 +94,40 @@ function createBookCard(book) {
     const titleElement = document.createElement('h3');
     const authorElement = document.createElement('h5');
     const pagesElement = document.createElement('p');
-    const readElement = document.createElement('p');
+    const readElement = document.createElement('div');
+    const readInput = document.createElement('input');
+    const readLabel = document.createElement('label');
     const removeButton = document.createElement('button');
 
     bookCard.classList.add('book-card');
     titleElement.classList.add('title');
     authorElement.classList.add('author');
     pagesElement.classList.add('pages');
-    readElement.classList.add('read');
+    readElement.classList.add('readElement');
+    readInput.setAttribute('type', 'checkbox');
+    readInput.setAttribute('value', 'Book Read??');
+    readInput.classList.add('readCheckbox');
     removeButton.classList.add('remove-button');
 
     titleElement.textContent = book.title;
     authorElement.textContent = book.author;
     pagesElement.textContent = `${book.pages} pages`;
-    readElement.textContent = `book read before? ${book.read}`;
+    readLabel.textContent = `book read?`;
     removeButton.textContent = 'delete';
+
+    if(book.read === true) {
+        readInput.checked = true;
+    } else {
+        readInput.checked = false;
+    }
 
     cardsWrapper.appendChild(bookCard);
     bookCard.appendChild(titleElement);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
     bookCard.appendChild(readElement);
+    readElement.appendChild(readLabel);
+    readElement.appendChild(readInput);
     bookCard.appendChild(removeButton);
 
     //set index number as data attribute 
@@ -122,6 +135,7 @@ function createBookCard(book) {
     bookCard.setAttribute('data-index', indexNumber);
   
     removeButton.addEventListener('click', removeBook);
+    readElement.addEventListener('change', handleReadCheckbox);
 }
 /**
  * Append existing Book Cards to Html - loops through {@link myLibrary} array and calls the {@link createBookCard} function 
@@ -158,6 +172,17 @@ const removeBook = (event) => {
     myLibrary.splice(indexOfBook, 1);
     event.target.parentElement.remove();
     console.log(myLibrary);
+}
+const handleReadCheckbox = (event) => {
+    let indexOfBook = event.currentTarget.parentElement.dataset.index;
+    if (event.target.checked === true) {
+        myLibrary[indexOfBook].read = true;
+        console.log(myLibrary[indexOfBook]);
+    } else {
+        myLibrary[indexOfBook].read = false;
+        console.log(myLibrary[indexOfBook]);
+    }
+
 }
 
 
