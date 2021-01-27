@@ -1,12 +1,57 @@
 body {
-    background: lightgray;
+    background: #F4F5F7;
+    font-family: sans-serif;
 }
 
+.header {
+    margin: 0px auto;
+    width: 74vmax;
+    padding: 30px 0px 50px 0px;
+    
+}
+h1 {
+    color: darkslategrey;
+    font-weight: 400;
+    font-size: 48px;
+}
+.new-book-button {
+    color: white;
+    font-size: 20px;
+    font-family: monospace;
+    font-weight: bold;
+    background: magenta;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 2px 2px 4px lightgray;
+    padding: 10px 30px 10px 30px;
+}
+.new-book-button:hover {
+    color: lightgray;
+    background: rgb(228, 0, 228);
+    box-shadow: none;
+}
+.cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 15px;
+    width: 75vmax;
+    margin: 0px auto;
+
+}
+
+.book-card {
+    background: rgb(0,245,166);
+    background: linear-gradient(170deg, rgba(0,245,166,1) 0%, rgba(24,145,135,1) 100%, rgba(0,212,255,1) 100%);
+    border-radius: 15px;
+    box-shadow: 1px 1px 3px lightgray;
+    padding: 10px;
+}
 .overlay-outer {
     display: grid;
     opacity: 0;
     pointer-events: none;
-    background: rgb(88, 102, 101, 0.5);
+    background: rgb(88, 102, 101, 0.8);
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -14,7 +59,6 @@ body {
     left: 0;
     justify-content: center;
     align-items: center;
-
 }
 
 .overlay-outer.open {
@@ -24,9 +68,55 @@ body {
 
 .overlay-inner {
     margin: 50px auto;
-    width: 50%;
+    width: 100%;
+    background: rgb(255, 145, 231);
+    padding: 40px;
 }
-.new-book-form {
-    padding: 20px;
+#new-book-form {
+    /* padding: 20px;
+     */
+
+}
+input {
+    display: block;
+    margin: 5px 0px 5px 0px;
+    background-color: rgba(255, 255, 255, 0.63);
+    color: black;
+    border: none;
+    padding: 10px;
+    width: 90%;
+}
+
+button#exit-form, button#submit-new-book {
+    padding: 10px 30px 10px 30px;
     background: white;
+    border-radius: 25px;
+    color: black;
+    font-family: monospace;
+    margin-top: 10px;
+
+
+}
+#submit-new-book {
+    border: 2px solid rgb(0,245,166);
+}
+#submit-new-book:hover {
+    background-color: rgb(0,245,166);
+    cursor:pointer; 
+}
+#submit-new-book:disabled {
+    background-color: rgba(0, 245, 167, 0.425);
+    border: none;
+    cursor: not-allowed;
+}
+#exit-form {
+    border: 2px solid magenta;
+    
+}
+
+#exit-form:hover {
+    background: magenta;
+    color: white;
+    cursor:pointer; 
+
 }

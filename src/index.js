@@ -2,7 +2,7 @@
 
 const overlay = document.querySelector('.overlay-outer');
 const overlayInner = document.querySelector('.overlay-inner');
-const addNewButton = document.querySelector('.new-book');
+const addNewButton = document.querySelector('.new-book-button');
 const submitNewBookButton = document.getElementById('submit-new-book');
 
 //variable declarations
