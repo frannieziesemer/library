@@ -37,6 +37,7 @@ const openOverlay = () => {
         return;
     } else {
         submitNewBookButton.disabled = false;
+        newBookForm.reset();
         overlay.classList.add('open');
     }
 }
@@ -69,7 +70,8 @@ const addBookToLibrary = (event) => {
     author = event.target[0].value;
     title = event.target[1].value;
     pages = event.target[2].value;
-    read = event.target[3].value;
+    read = event.target[3].checked;
+    console.log(read);
     newLibraryItem = new Book(author, title, pages, read);
     myLibrary.push(newLibraryItem);
     console.log(myLibrary);
@@ -106,7 +108,7 @@ function createBookCard(book) {
     readElement.classList.add('readElement');
     readInput.setAttribute('type', 'checkbox');
     readInput.setAttribute('value', 'Book Read??');
-    readInput.classList.add('readCheckbox');
+    readInput.classList.add('read-checkbox');
     removeButton.classList.add('remove-button');
 
     titleElement.textContent = book.title;
@@ -173,16 +175,21 @@ const removeBook = (event) => {
     event.target.parentElement.remove();
     console.log(myLibrary);
 }
+/**
+ * Function finds the index of the book object and changes read to true or false
+ * @param {event} event 
+ * @returns boolean change on book object 
+ */
 const handleReadCheckbox = (event) => {
     let indexOfBook = event.currentTarget.parentElement.dataset.index;
     if (event.target.checked === true) {
         myLibrary[indexOfBook].read = true;
+
         console.log(myLibrary[indexOfBook]);
     } else {
         myLibrary[indexOfBook].read = false;
         console.log(myLibrary[indexOfBook]);
     }
-
 }
 
 

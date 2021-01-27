@@ -79,11 +79,7 @@ button:hover {
     background: rgb(255, 145, 231);
     padding: 40px;
 }
-#new-book-form {
-    /* padding: 20px;
-     */
 
-}
 #new-book-form>input {
     display: block;
     margin: 5px 0px 5px 0px;
