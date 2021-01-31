@@ -11,18 +11,13 @@ let pages;
 let title;
 let read;
 let newLibraryItem;
+let localStorageKey;
 
 /**
  * @type {Array} 
  */
 let myLibrary = [
-    {
-        title: 'Harry Potter',
-        author: 'JK Rowling',
-        pages: '230',
-        read: true
 
-    }
 ];
 
 
@@ -71,17 +66,27 @@ const addBookToLibrary = (event) => {
     title = event.target[1].value;
     pages = event.target[2].value;
     read = event.target[3].checked;
-    console.log(read);
+
+
     newLibraryItem = new Book(author, title, pages, read);
     myLibrary.push(newLibraryItem);
-    console.log(myLibrary);
+    addBookToLocalStorage(newLibraryItem);
     createBookCard(newLibraryItem);
     submitNewBookButton.disabled = true;
 }
-
-
-
-
+/**
+ * Function that takes the new book object, assigns a new key value
+ * new key value is the title of the book
+ * (this is so the next object does not overwrite the current book 
+ * - each object requires a new key value)
+ * Then the new book is converted to a string and Set to the local storage
+ * @param {Object} newLibraryItem 
+ */
+const addBookToLocalStorage = (newLibraryItem) => {
+    console.log(newLibraryItem.title);
+    let storageItemKey = newLibraryItem.title;
+    localStorage.setItem(storageItemKey, JSON.stringify(newLibraryItem));
+ }
 
 
 /**
@@ -171,10 +176,13 @@ const exitForm = () => {
  */
 const removeBook = (event) => {
     let indexOfBook = event.target.parentElement.dataset.index;
+    //first remove from localStorage
+    localStorage.removeItem(myLibrary[indexOfBook].title);
     myLibrary.splice(indexOfBook, 1);
     event.target.parentElement.remove();
-    console.log(myLibrary);
+
 }
+
 /**
  * Function finds the index of the book object and changes read to true or false
  * @param {event} event 
@@ -185,12 +193,30 @@ const handleReadCheckbox = (event) => {
     if (event.target.checked === true) {
         myLibrary[indexOfBook].read = true;
 
-        console.log(myLibrary[indexOfBook]);
     } else {
         myLibrary[indexOfBook].read = false;
-        console.log(myLibrary[indexOfBook]);
     }
 }
+
+
+
+//check to see if there is local storage 
+if(localStorage.length === 0) {
+    console.log('there is no storage');
+} else {    //if true loop through localStorage object - find the key - parse to object - call function to create cards
+    let book;
+    for(let i = 1; i <= localStorage.length; i++) {
+        localStorageKey = 'book' + i;
+        console.log(localStorageKey)
+        book = JSON.parse(localStorage.getItem(localStorageKey));
+        console.log(book);
+        myLibrary.push(book);
+
+    }
+    console.log(localStorage)
+    console.log(myLibrary)
+}
+
 
 
 

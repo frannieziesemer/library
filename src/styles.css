@@ -37,7 +37,7 @@ button:hover {
 }
 .cards-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 10px;
     row-gap: 15px;
     width: 75vmax;
@@ -90,15 +90,13 @@ button:hover {
     width: 90%;
 }
 
-button#exit-form, button#submit-new-book {
+button#exit-form, button#submit-new-book, button.remove-button{
     padding: 10px 30px 10px 30px;
     background: white;
     border-radius: 25px;
     color: black;
     font-family: monospace;
-    margin-top: 10px;
-
-
+    margin-top: 20px;
 }
 #submit-new-book {
     border: 2px solid rgb(0,245,166);
@@ -120,4 +118,17 @@ button#exit-form, button#submit-new-book {
     background: magenta;
     color: white;
 
+}
+
+.remove-button {
+    margin: 10px auto;
+    display: block;
+    border: 2px solid #003630;
+    opacity: 40%;
+}
+
+.remove-button:hover {
+    background: #003630;
+    color: white;
+    opacity: 100%;
 }
