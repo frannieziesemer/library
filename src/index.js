@@ -229,10 +229,10 @@ overlay.addEventListener('click', handleClickOutside);
  * @param {Event} event - event listener on delete button 
  */
 const handleDeleteBook = (event) => {
-     let keyNameTarget = event.target.parentElement.dataset.index;
-    localStorage.removeItem(keyNameTarget);
-    
-
+		let deletedBook = event.target.parentElement;
+    localStorage.removeItem(deletedBook.dataset.index);
+    deletedBook.remove();
+		
 }
 
 //MARKS BOOK READ

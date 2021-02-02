@@ -19,4 +19,5 @@ An app that takes the user input of a book and stores the data in localStorage. 
 
 
 ### features to add 
+- !important - form validation + close overlay on submit 
 - cloud storage 
