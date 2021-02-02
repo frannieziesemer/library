@@ -229,12 +229,9 @@ overlay.addEventListener('click', handleClickOutside);
  * @param {Event} event - event listener on delete button 
  */
 const handleDeleteBook = (event) => {
-    //loop throught local storage?? to find index for find title 
-    let indexOfBookToRemove = event.target.parentElement.dataset.index;
-    console.log(indexOfBookToRemove);
-    //first remove from localStorage
-    localStorage.removeItem(myLibrary[indexOfBookToRemove].title);
-    event.target.parentElement.remove();
+     let keyNameTarget = event.target.parentElement.dataset.index;
+    localStorage.removeItem(keyNameTarget);
+    
 
 }
 
