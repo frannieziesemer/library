@@ -5,6 +5,7 @@ const overlayInner = document.querySelector('.overlay-inner');
 const addNewButton = document.querySelector('.new-book-button');
 const submitNewBookButton = document.getElementById('submit-new-book');
 
+
 //variable declarations
 let author;
 let pages;
@@ -12,6 +13,9 @@ let title;
 let read;
 let newLibraryItem;
 let storageItemKey;
+let book;
+
+
 
 /**
  * Decalre array variable so we can push the books 
@@ -23,20 +27,23 @@ let myLibrary = [
 
 //LOCAL STORAGE DISPLAY ON LOAD
 //check to see if there is local storage 
-if(localStorage.length === 0) {
+const populateLocalStorage = () => {
+	if(localStorage.length === 0) {
     console.log('there is no storage');
-} else {    //if true loop through localStorage object - find the key - parse to object - call function to create cards
-    let book;
+	} else {    //if true loop through localStorage object - find the key - parse to object - call function to create cards  
+    console.log(localStorage.length);
     for(let i = 0; i < localStorage.length; i++) {
         storageItemKey = localStorage.key(i);
-        book = JSON.parse(localStorage.getItem(storageItemKey));
-        console.log(book);
-        myLibrary.push(book);
-
+        console.log(storageItemKey);
+				book = JSON.parse(localStorage.getItem(storageItemKey));
+				createBookCard(book);
     }
-    console.log(localStorage)
-    console.log(myLibrary)
-}
+	}
+} 
+
+window.addEventListener('load', populateLocalStorage);
+
+
 /**
  * open pop up for to enter new book details 
  * called on ADD new button with event listener 
@@ -88,7 +95,6 @@ const addBookToLibrary = (event) => {
 
 
     newLibraryItem = new Book(author, title, pages, read);
-    myLibrary.push(newLibraryItem);
     addBookToLocalStorage(newLibraryItem);
     createBookCard(newLibraryItem);
     submitNewBookButton.disabled = true;
@@ -157,22 +163,25 @@ function createBookCard(book) {
     bookCard.appendChild(removeButton);
 
     //set index number as data attribute 
-    let indexNumber = myLibrary.length -1;
-    bookCard.setAttribute('data-index', indexNumber);
+    // let indexNumber = myLibrary.length - 1;
+    bookCard.setAttribute('data-index', book.title);
+
+		removeButton.addEventListener('click', handleDeleteBook);
+		readElement.addEventListener('change', handleReadCheckbox);
+			 
   
-    removeButton.addEventListener('click', removeBook);
-    readElement.addEventListener('change', handleReadCheckbox);
 }
+
 /**
  * Append existing Book Cards to Html - loops through {@link myLibrary} array and calls the {@link createBookCard} function 
  * to append each book as a new 'card' div
  * @param {array} library 
  */
-const displayBookCards = (library) => {
-    library.forEach((book) => {
-        createBookCard(book);
-    })
-} 
+// const displayBookCards = (library) => {
+//     library.forEach((book) => {
+//         createBookCard(book);
+//     })
+// } 
 
 
 
@@ -208,17 +217,23 @@ const handleClickOutside = (event) => {
 exitBookButton.addEventListener('click', exitForm);
 overlay.addEventListener('click', handleClickOutside);
 
+
+
+
+
 //REMOVE BOOK
+
+
 /**
  * Function to remove a book object from array and from dom
  * @param {Event} event - event listener on delete button 
  */
-const removeBook = (event) => {
+const handleDeleteBook = (event) => {
+    //loop throught local storage?? to find index for find title 
     let indexOfBookToRemove = event.target.parentElement.dataset.index;
     console.log(indexOfBookToRemove);
     //first remove from localStorage
     localStorage.removeItem(myLibrary[indexOfBookToRemove].title);
-    myLibrary.splice(indexOfBookToRemove, 1);
     event.target.parentElement.remove();
 
 }
@@ -239,7 +254,6 @@ const handleReadCheckbox = (event) => {
     }
 }
 
+ 
 
 
-
-displayBookCards(myLibrary);
