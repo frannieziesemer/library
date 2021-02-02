@@ -242,14 +242,19 @@ const handleDeleteBook = (event) => {
  * @returns boolean change on book object 
  */
 const handleReadCheckbox = (event) => {
-    let indexOfBookRead = event.currentTarget.parentElement.dataset.index;
-    if (event.target.checked === true) {
-        myLibrary[indexOfBookRead].read = true;
-
+	let readBookCard = event.target.parentElement;
+	let obj = JSON.parse(localStorage.getItem(readBookCard.parentElement.dataset.index));
+	console.log(readBookCard.childNodes[1])
+    if (readBookCard.childNodes[1].checked === true) {
+				obj.read = true;
     } else {
-        myLibrary[indexOfBookRead].read = false;
-    }
-}
+				obj.read = false;
+		}
+	
+		//send updated object back to local storage as a string
+		localStorage.setItem(readBookCard.parentElement.dataset.index, JSON.stringify(obj));
+				
+ }
 
  
 
