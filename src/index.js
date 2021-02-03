@@ -6,6 +6,7 @@ const addNewButton = document.querySelector('.new-book-button');
 const submitNewBookButton = document.getElementById('submit-new-book');
 const newBookForm = document.getElementById('new-book-form');
 const exitBookButton = document.getElementById('exit-form');
+const getStartedText = document.getElementById('starter-text');
 
 //variable declarations
 let author;
@@ -27,11 +28,14 @@ const populateLocalStorage = () => {
 	if(localStorage.length === 0) {
     console.info('there is no storage');
 	} else {    //if true loop through localStorage object - find the key - parse to object - call function to create cards  
-    for(let i = 0; i < localStorage.length; i++) {
-        storageItemKey = localStorage.key(i);
-				book = JSON.parse(localStorage.getItem(storageItemKey));
-				displayBookCard(book);
-    }
+    
+        for(let i = 0; i < localStorage.length; i++) {
+            storageItemKey = localStorage.key(i);
+		    book = JSON.parse(localStorage.getItem(storageItemKey));
+		    displayBookCard(book);
+        }
+
+        getStartedText.hidden = true;
 	}
 } 
 
@@ -48,7 +52,6 @@ const openOverlay = () => {
         console.info('overlay already open');
         return;
     } else {
-        // submitNewBookButton.disabled = true;
         newBookForm.reset();
         overlay.classList.add('open');
     }
@@ -91,7 +94,7 @@ const addBookToLibrary = (event) => {
     newLibraryItem = new Book(author, title, pages, read);
     addBookToLocalStorage(newLibraryItem);
     displayBookCard(newLibraryItem);
-    submitNewBookButton.disabled = true;
+    // submitNewBookButton.disabled = false;
 }
 
 /**
@@ -139,7 +142,7 @@ function displayBookCard(book) {
     authorElement.textContent = book.author;
     pagesElement.textContent = `${book.pages} pages`;
     readLabel.textContent = `book read?`;
-    removeButton.innerHTML = '<i class="bi bi-trash"></i>';
+    removeButton.textContent = 'delete';
 
     if(book.read === true) {
         readInput.checked = true;
@@ -180,7 +183,7 @@ const submitForm = (event) => {
  */
 const exitForm = () => {
     newBookForm.reset();
-    submitNewBookButton.disabled = true;
+    // submitNewBookButton.disabled = true;
     overlay.classList.remove('open');
 }
 
@@ -200,8 +203,9 @@ const handleClickOutside = (event) => {
  * @param {Event} event - event listener on delete button 
  */
 const handleDeleteBook = (event) => {
-	let deletedBook = event.target.parentElement;
-    localStorage.removeItem(deletedBook.dataset.itemKey);
+    let deletedBook = event.target.parentElement;
+    localStorage.removeItem(deletedBook.dataset.itemkey);
+    console.log(deletedBook.dataset);
     deletedBook.remove();		
 }
 
@@ -212,8 +216,7 @@ const handleDeleteBook = (event) => {
  */
 const handleReadCheckbox = (event) => {
 	let readBookCard = event.target.parentElement;
-	let obj = JSON.parse(localStorage.getItem(readBookCard.parentElement.dataset.itemKey));
-    
+	let obj = JSON.parse(localStorage.getItem(readBookCard.parentElement.dataset.itemkey));
     if (readBookCard.childNodes[1].checked === true) {
 				obj.read = true;
     } else {
@@ -221,7 +224,7 @@ const handleReadCheckbox = (event) => {
         }
         
     //send updated object back to local storage as a string
-    localStorage.setItem(readBookCard.parentElement.dataset.itemKey, JSON.stringify(obj));
+    localStorage.setItem(readBookCard.parentElement.dataset.itemkey, JSON.stringify(obj));
 				
  }
 
