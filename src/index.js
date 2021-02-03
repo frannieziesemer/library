@@ -7,7 +7,6 @@ const submitNewBookButton = document.getElementById('submit-new-book');
 const newBookForm = document.getElementById('new-book-form');
 const exitBookButton = document.getElementById('exit-form');
 
-
 //variable declarations
 let author;
 let pages;
@@ -24,7 +23,6 @@ let book;
  * this object is then passed into the {@link displayBookCard} function to create and display the book in the DOM
  * 
  */
-
 const populateLocalStorage = () => {
 	if(localStorage.length === 0) {
     console.info('there is no storage');
@@ -141,7 +139,7 @@ function displayBookCard(book) {
     authorElement.textContent = book.author;
     pagesElement.textContent = `${book.pages} pages`;
     readLabel.textContent = `book read?`;
-    removeButton.textContent = 'delete';
+    removeButton.innerHTML = '<i class="bi bi-trash"></i>';
 
     if(book.read === true) {
         readInput.checked = true;

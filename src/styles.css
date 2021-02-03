@@ -51,6 +51,8 @@ button:hover {
     border-radius: 15px;
     box-shadow: 1px 1px 3px lightgray;
     padding: 10px;
+    color: darkslategray;
+    font-family: Helvetica, sans-serif;
 }
 
 
@@ -90,7 +92,7 @@ button:hover {
     width: 90%;
 }
 
-button#exit-form, button#submit-new-book, button.remove-button{
+button#exit-form, button#submit-new-book {
     padding: 10px 30px 10px 30px;
     background: white;
     border-radius: 25px;
@@ -121,14 +123,20 @@ button#exit-form, button#submit-new-book, button.remove-button{
 }
 
 .remove-button {
+    float: right;
+    background:rgba(255, 255, 255, 0);
+    color: rgba(0,212,255,1);
     margin: 10px auto;
     display: block;
-    border: 2px solid #003630;
-    opacity: 40%;
+    padding: 14px;
+    border-radius: 25px;
+    border: none;
+    font-size: 24px;
 }
 
+
 .remove-button:hover {
-    background: #003630;
+    background: rgba(0,212,255,1);
     color: white;
     opacity: 100%;
 }
