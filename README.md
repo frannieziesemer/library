@@ -6,7 +6,7 @@ An app that takes the user input of a book and stores the data in localStorage. 
 - localStorage ( this is fun! )
 - object contructor
 - DOM manipulation 
-- jsdoc documentation 
+- jsdoc documentation - this was particularly handy towards the end to check all of the functions in my code. For example some were now irrelevant and repetitive so I could then refactor. Also to check that the function names were descriptive and clear
 
 #### challenges overcome while building this app 
 - I must search best practices for .js file structure
